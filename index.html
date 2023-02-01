@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+    <link rel="shortcut icon" href="./img/todoListFavicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+
+        <div id="loading">
+            <img src="img/loading.gif">
+        </div>
+        <!-- Logotipo do ToDoList -->
+        <div class="center">
+            <img src="./img/todoList.png">
+        </div>
+
+        <!-- Conteúdo destinado a usuários não autenticados -->
+        <div id="auth" class="center">
+            <!-- Formulário de autenticação -->
+            <form id="authForm">
+                <h3 id="authFormTitle">Acesse a sua conta para continuar</h3>
+
+                <label for="email">E-mail: </label>
+                <input type="email" placeholder="E-mail" id="email">
+
+                <label for="password">Senha: </label>
+                <input type="password" placeholder="Senha" id="password">
+
+                <button type="submit" id="submitAuthForm">Acessar</button>
+            </form>
+            
+            <p id="passwordReset">
+                Esqueceu sua senha?
+                <button onclick="sendPasswordResetEmail()" class="alternative">Alterar senha</button>
+            </p>
+
+            <!-- alternar o formulário de autenticação para o cadastro de novas contas -->
+            <p id="register">
+                Não possui uma conta?
+                <button onclick="toggleToRegister()" class="alternative">Cadastrar uma nova conta</button>
+            </p>
+
+            <p id="">
+                Ou acesse usando:<br>
+                <img src="./img/google.png" onclick="signInWithGoogle()">
+                <img src="./img/github.png" onclick="signInWithGitHub()">
+                <img src="./img/facebook.png" onclick="signInWithFacebook()">
+            </p>
+
+            <!-- alternar o formulário de autenticação para o acesso de contas já existentes -->
+            <p id="access" class="startHidden">
+                Já possui uma conta?
+                <button onclick="toggleToAccess()" class="alternative">Acesse a sua conta</button>
+            </p>
+        </div>
+
+        <!-- Conteúdo destinado a usuários autenticados -->
+        <div id="userContent" class="startHidden">
+            <hr>
+            <div id="userInfo" class="center">
+                <img id="userImg">
+                <p id="userName"></p>
+                <p id="userEmail"></p>
+                <p id="emailVerified"></p>
+                <div id="sendEmailVerificationDiv">
+                    <button id="buttonEmailVerification" onclick="sendEmailVerification()" class="alternative">Verificar E-mail</button>
+                </div>
+                <br>
+                <button onclick="updateUserName()" class="alternative">Atualizar meu nome</button>
+                <button onclick="signOut()" class="alternative">Sair</button>
+                <button onclick="deleteUserAccount()" class="danger">Deletar</button>
+            </div>
+
+            <hr>
+            <div id="todoList">
+                <h3 id="todoCount">Carregando tarefas...</h3>
+                <div class="center">
+                    <label for="search">Buscar</label>
+                    <input type="text" placeholder="Buscar" id="search">
+                </div>
+                <ul id="ulTodoList">
+                </ul>
+            </div>
+
+            <hr>
+
+            <div class="center">
+                <!-- formulário de tarefas -->
+                <form id="todoForm">
+                    <h3 id="todoFormTitle">Adicionar tarefa: </h3>
+                    <label for="name">Tarefa: </label>
+                    <input type="text" placeholder="Tarefa" id="name">
+                    <label for="file">Figura: </label>
+                    <!-- accept="image/*" -> Isso permite que apenas imagens possam ser anexadas no input -->
+                    <input type="file" id="file" accept="image/*">
+                    <button type="submit" id="submitTodoForm">Adicionar tarefa</button>
+                </form>
+
+                <div id="cancelUpdateTodo" class="startHidden">
+                    <button onclick="confirmTodoUpdate()">Confirmar Modificação</button>
+                    <button class="alternative" onclick="resetTodoForm()">Cancelar Modificação</button>
+                </div>
+                <div id="progressFeedback" class="startHidden">
+                    <progress max="100" id="progress"></progress>
+                    <button id="playPauseBtn" class="alternative">Pausar</button>
+                    <button id="cancelBtn" class="danger">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Recursos do Firebase -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-database.js"></script> -->
+
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+
+    <script src="js/utils.js"></script>
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/todo.js"></script>
+</body>
+</html>
